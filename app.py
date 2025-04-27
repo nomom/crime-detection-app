@@ -1,4 +1,4 @@
-```python
+
 import streamlit as st
 import os
 import cv2
@@ -173,4 +173,3 @@ if st.button("Clear Results"):
             shutil.rmtree(dir)
         os.makedirs(dir)
     st.success("Results cleared.")
-```
