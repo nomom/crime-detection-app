@@ -14,9 +14,12 @@ import io
 # Download best.pt and RealESRGAN_x4plus.pth
 if not os.path.exists("best.pt"):
     gdown.download("YOUR_BEST_PT_GOOGLE_DRIVE_LINK", "best.pt", quiet=False)
+
+
 if not os.path.exists("weights/RealESRGAN_x4plus.pth"):
     os.makedirs("weights", exist_ok=True)
-    gdown.download("YOUR_REALESRGAN_PTH_GOOGLE_DRIVE_LINK", "weights/RealESRGAN_x4plus.pth", quiet=False)
+    gdown.download("https://drive.google.com/file/d/1sWenYoZzAc_ogmChnvi8ZSFROfgvGj0P/view?usp=sharing"
+, "weights/RealESRGAN_x4plus.pth", quiet=False)
 
 # Set page configuration
 st.set_page_config(page_title="Crime Detection App", layout="wide")
