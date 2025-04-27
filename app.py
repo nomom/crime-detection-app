@@ -12,8 +12,9 @@ import zipfile
 import io
 
 # Download best.pt and RealESRGAN_x4plus.pth
-if not os.path.exists("best.pt"):
-    gdown.download("YOUR_BEST_PT_GOOGLE_DRIVE_LINK", "best.pt", quiet=False)
+if not os.path.exists("preprocess_best.pt"):
+    gdown.download("https://drive.google.com/file/d/1jq_ORLgaEMYJXMtnFyVfevAKMPa99OzM/view?usp=sharing", "preprocess_best.pt", quiet=False)
+
 
 
 if not os.path.exists("weights/RealESRGAN_x4plus.pth"):
@@ -40,7 +41,7 @@ for dir in [TEMP_DIR, OUTPUT_DIR]:
 # Load models
 @st.cache_resource
 def load_models():
-    yolo_model = YOLO("best.pt")
+    yolo_model = YOLO("preprocess_best.pt")
     esrgan_model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32)
     esrgan_model.load_state_dict(torch.load("weights/RealESRGAN_x4plus.pth")['params_ema'])
     esrgan_model.eval()
@@ -56,6 +57,7 @@ def upscale_image(image, outscale=3.5):
     img_tensor = torch.from_numpy(img).float().permute(2, 0, 1).unsqueeze(0) / 255.0
     with torch.no_grad():
         output = esrgan_model(img_tensor)
+
     output = output.squeeze().permute(1, 2, 0).clamp(0, 1) * 255.0
     output = output.numpy().astype(np.uint8)
     output = output[:, :, ::-1]  # BGR to RGB
