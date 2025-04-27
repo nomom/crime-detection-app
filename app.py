@@ -12,8 +12,8 @@ import io
 import gdown
 
 # Download best.pt from Google Drive if not present
-if not os.path.exists("preprocess.pt"):
-    gdown.download("YOUR_GOOGLE_DRIVE_LINK", "best.pt", quiet=False)
+
+
 
 # Set page configuration
 st.set_page_config(page_title="Crime Detection App", layout="wide")
@@ -35,7 +35,7 @@ for dir in [TEMP_DIR, OUTPUT_DIR]:
 # Load models
 @st.cache_resource
 def load_models():
-    yolo_model = YOLO("preprocess.pt")  # Trained YOLOv11 model
+    yolo_model = YOLO("preprocess_best.pt")  # Trained YOLOv11 model
     esrgan_model = RealESRGAN("RealESRGAN_x4plus")  # Pre-trained Real-ESRGAN
     return yolo_model, esrgan_model
 
