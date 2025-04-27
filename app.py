@@ -12,7 +12,7 @@ import io
 import gdown
 
 # Download best.pt from Google Drive if not present
-if not os.path.exists("best.pt"):
+if not os.path.exists("preprocess.pt"):
     gdown.download("YOUR_GOOGLE_DRIVE_LINK", "best.pt", quiet=False)
 
 # Set page configuration
@@ -27,6 +27,7 @@ if "processed" not in st.session_state:
 TEMP_DIR = "temp"
 OUTPUT_DIR = "output"
 for dir in [TEMP_DIR, OUTPUT_DIR]:
+
     if os.path.exists(dir):
         shutil.rmtree(dir)
     os.makedirs(dir)
@@ -34,7 +35,7 @@ for dir in [TEMP_DIR, OUTPUT_DIR]:
 # Load models
 @st.cache_resource
 def load_models():
-    yolo_model = YOLO("best.pt")  # Trained YOLOv11 model
+    yolo_model = YOLO("preprocess.pt")  # Trained YOLOv11 model
     esrgan_model = RealESRGAN("RealESRGAN_x4plus")  # Pre-trained Real-ESRGAN
     return yolo_model, esrgan_model
 
