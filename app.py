@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from PIL import Image
 from ultralytics import YOLO
-import torch
+
 import gdown
 from basicsr.archs.rrdbnet_arch import RRDBNet
 import shutil
